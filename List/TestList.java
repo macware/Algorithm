@@ -10,13 +10,13 @@ public class TestList {
 		List l = new List();
 		for (int i = 0; i < 10; i++)
 			l.appendNode(i);
-		System.out.println(l.getNode(4).data);
+		System.out.println(l.getNode(4).val);
 		//l.printList();
 		
 		l.deleteNode(4);
 		l.deleteNode(9);
 		
-		System.out.println(l.getEnd().data);
+		System.out.println(l.getEnd().val);
 		l.printList();
 	}
 

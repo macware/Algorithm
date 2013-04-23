@@ -1,0 +1,14 @@
+Think indexing/Counting carefully
+(1) 0 start:
+	a. the current one is in question
+(2) 1 start:
+	a. the next one is in question
+
+Use data structures to solve the problem:
+(1) stack: 
+	a. previous element might be used to verify later result
+	b. a result can only be obtained when a corresponding later element is found
+	
+(2) hash: intersection check or fast look up
+
+Use concurrent marching

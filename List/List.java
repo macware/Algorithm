@@ -43,7 +43,7 @@ public class List {
 	public void deleteNode(int d){
 		ListNode cur = head;
 		
-		while (cur.next.data != d){
+		while (cur.next.val != d){
 			cur = cur.next;
 		}
 		
@@ -57,7 +57,7 @@ public class List {
 		ListNode cur = head.next;
 		
 		while( cur != null){
-			System.out.print(cur.data+" ");
+			System.out.print(cur.val+" ");
 			cur = cur.next;
 		}
 	}

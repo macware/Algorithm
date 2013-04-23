@@ -1,7 +1,5 @@
 package Tree;
 
-import java.math.*;
-
 // Binary Search Tree
 public class BST {
 

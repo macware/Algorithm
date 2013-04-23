@@ -1,0 +1,4 @@
+The initial state:
+	1. starting from 0 or -1?
+	2. if starting from 0, is 0th number valid?
+	3. the current position should be valid (modifying from parent)

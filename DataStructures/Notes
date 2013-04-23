@@ -1,0 +1,7 @@
+/* Creating a data structure
+
+Different types of primitive data structures can be used as its components
+	1. Minstack uses two stacks
+	
+Modifications such as insertion or deletion could affect other components
+	1. The push and pop operation could affect the internal mins stack

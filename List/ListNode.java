@@ -1,11 +1,11 @@
 package List;
 
 public class ListNode {
-	public ListNode next = null;
-	public int data;
+	public ListNode next;
+	public int val;
 	
-	public ListNode(int d){
-		data = d;
+	public ListNode(int x) {
+		val = x;
+		next = null;
 	}
-
 }

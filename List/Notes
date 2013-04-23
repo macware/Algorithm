@@ -1,0 +1,5 @@
+List iteration: cur, rem (starting from the head until null)
+List modification: parent (make a dummy parent for the head)
+List start and rear recording: circularize and rear as the list
+List reverse: newHead, cur, rem
+	 
