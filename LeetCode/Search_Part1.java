@@ -58,71 +58,10 @@ public class Search_Part1 {
 		return result;
 	}
 
-	/*
-	 * Permutation sequence
-	 */
-
-	/*
-	 * 4,1,4,2,2,2,0 4,2,0,2,3,2,0 4,2,2,0,0,2,3 4,2,0,3,0,2,2
-	 */
-	/*
-	 * NextPermutation. This is similar to the problem of career cup 5.3, which
-	 * cares about binary format, but here, we concentrates on decimal format.
-	 * However, the idea are the same: Flip and then rearrange numbers that
-	 * followed. Here 0 means a decreasing point, 1 means keep increasing.
-	 */
-	public class DecPair {
-		public int i;
-		public int j;
-
-		public DecPair(int i, int j) {
-			this.i = i;
-			this.j = j;
-		}
-	}
-
-	private void getCloserDecPair(int[] num, int start, int end, DecPair dpair) {
-		if (start >= end)
-			return;
-
-		int i;
-		for (i = end - 1; i >= start; i--)
-			if (num[i] < num[end]) {
-				dpair.i = i;
-				dpair.j = end;
-				break;
-			}
-
-		getCloserDecPair(num, i + 1, end - 1, dpair);
-	}
-
-	public void nextPermutation(int[] num) {
-		if (num == null || num.length < 2)
-			return;
-		DecPair dpair = new DecPair(-1, -1);
-		getCloserDecPair(num, 0, num.length-1, dpair);
-		if (dpair.i == -1){
-			Arrays.sort(num);
-		} else {
-			int tmp = num[dpair.i];
-			num[dpair.i] = num[dpair.j];
-			num[dpair.j] = tmp;
-			Arrays.sort(num, dpair.i + 1, num.length);
-		}
-	}
-
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Search_Part1 oj = new Search_Part1();
-		int[] num = new int[] { 4,2,0,2,3,2,0 };
-		oj.nextPermutation(num);
-		for (int i = 0; i < num.length; i++) {
-			System.out.print(num[i]);
-		}
-
 	}
-
 }

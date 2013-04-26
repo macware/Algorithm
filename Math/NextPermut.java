@@ -62,6 +62,12 @@ public class NextPermut {
 		Arrays.sort(num, dpair.i + 1, num.length);
 	}
 
+	/*
+	 * NextPermutation. This is similar to the problem of career cup 5.3, which
+	 * cares about binary format, but here, we concentrates on decimal format.
+	 * However, the idea are the same: Flip and then rearrange numbers that
+	 * followed. Here 0 means a decreasing point, 1 means keep increasing.
+	 */
 	public void nextPermutation_unclear(int[] num) {
 		// Start typing your Java solution below
 		// DO NOT write main() function
