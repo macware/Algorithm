@@ -5,6 +5,8 @@ Normal:
 1. populating next right pointer
 2. sort colors
 3. convert link list to BST
+4. zigzag, spiral matrix
+5. string
 
 DP:
 1. distinct sequences
