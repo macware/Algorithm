@@ -1,1 +1,13 @@
 # Benchmark 2013.3.24
+
+# Chop 2013.4.25
+Normal:
+1. populating next right pointer
+2. sort colors
+3. convert link list to BST
+
+DP:
+1. distinct sequences
+2. beat stock
+3. word ladder
+4. padlidrome partition
