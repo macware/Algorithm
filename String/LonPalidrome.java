@@ -61,13 +61,43 @@ public class LonPalidrome {
 		return s.substring(start, end + 1);
 
 	}
-	
+
+	public String longestPalindrome2(String s) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		int b, e, maxLen;
+		boolean[][] isPalid = new boolean[s.length()][s.length()];
+
+		b = 0;
+		e = s.length();
+		maxLen = 0;
+
+		for (int i = s.length() - 1; i >= 0; i--) {
+			for (int j = i; j < s.length(); j++) {
+				if (s.charAt(i) == s.charAt(j)
+						&& (j <= i + 2 || isPalid[i + 1][j - 1])) {
+					int newLen = j - i + 1;
+					if (maxLen < newLen) {
+						b = i;
+						e = j + 1;
+						maxLen = newLen;
+					}
+
+					isPalid[i][j] = true;
+				}
+			}
+		}
+
+		return s.substring(b, e);
+	}
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		LonPalidrome lp = new LonPalidrome();
+		System.out.println(lp.longestPalindrome2(""));
 	}
 
 }

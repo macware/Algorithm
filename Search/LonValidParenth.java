@@ -34,7 +34,7 @@ public class LonValidParenth {
 				startIdx = s.length();
 			}else {
 				// Try to merge with earlier match
-				startIdx = Math.min(stack.peek(), stack.pop());
+				startIdx = Math.min(startIdx, stack.pop());
 				
 				if (stack.isEmpty())
 					newLen = i - startIdx + 1;

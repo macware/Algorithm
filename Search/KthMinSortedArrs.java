@@ -85,6 +85,57 @@ public class KthMinSortedArrs {
 		}
 	}
 
+	double findMedian(int[] A, int as, int ae, int[] B, int bs, int be, int k,
+			boolean isEven) {
+		int alen = ae - as + 1;
+		int blen = be - bs + 1;
+
+		int ai = (int) ((double) alen / (alen + blen) * (k - 1));
+		int bj = k - 1 - ai;
+
+		int Ai_1 = (ai == 0) ? Integer.MIN_VALUE : A[as + ai - 1];
+		int Bj_1 = (bj == 0) ? Integer.MIN_VALUE : B[bs + bj - 1];
+		int Ai = (ai == alen) ? Integer.MAX_VALUE : A[as + ai];
+		int Bj = (bj == blen) ? Integer.MAX_VALUE : B[bs + bj];
+
+		if (Ai >= Bj_1 && Ai <= Bj) {
+			if (isEven) {
+				if (ai != alen - 1 && A[as + ai + 1] < Bj)
+					Bj = A[as + ai + 1];
+				return (Ai + Bj) * 1.0 / 2;
+			}
+			return Ai;
+		} else if (Bj >= Ai_1 && Bj <= Ai) {
+			if (isEven) {
+				if (bj != blen - 1 && B[bs + bj + 1] < Ai)
+					Ai = B[bs + bj + 1];
+				return (Ai + Bj) * 1.0 / 2;
+			}
+			return Bj;
+		}
+
+		if (Ai < Bj) {
+			return findMedian(A, as + ai + 1, ae, B, bs, be - bj - 1, k - ai
+					- 1, isEven);
+		} else
+			return findMedian(A, as, ae - ai - 1, B, bs + bj + 1, be, k - bj
+					- 1, isEven);
+	}
+
+	public double findMedianSortedArrays(int A[], int B[]) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		int k = A.length + B.length;
+
+		if (k % 2 == 0)
+			return findMedian(A, 0, A.length - 1, B, 0, B.length - 1, k / 2,
+					true);
+		else {
+			return findMedian(A, 0, A.length - 1, B, 0, B.length - 1,
+					k / 2 + 1, false);
+		}
+	}
+
 	double findKthSmallestSpec(int[] A, int Aoff, int Alen, int[] B, int Boff,
 			int Blen, int k, boolean isMeven) {
 		int di = (int) ((double) Alen / (Alen + Blen) * (k - 1));
@@ -100,7 +151,7 @@ public class KthMinSortedArrs {
 
 		if (Bj_1 < Ai && Ai <= Bj) {
 			if (isMeven) {
-				if (di != Alen - 1 && A[i + 1] < Bj)
+				if (i != A.length - 1 && A[i + 1] < Bj)
 					Bj = A[i + 1];
 				return (Ai + Bj) * 1.0 / 2;
 			} else
@@ -108,7 +159,7 @@ public class KthMinSortedArrs {
 
 		} else if (Ai_1 < Bj && Bj <= Ai) {
 			if (isMeven) {
-				if (dj != Blen - 1 && B[j + 1] < Ai)
+				if (j != B.length - 1 && B[j + 1] < Ai)
 					Ai = B[j + 1];
 				return (Ai + Bj) * 1.0 / 2;
 			} else
@@ -200,11 +251,16 @@ public class KthMinSortedArrs {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] A = new int[] { 11, 12, 13, 14, 17 };
-		int[] B = new int[] { 5, 6, 8, 9 };
+		int[] A = new int[] { 1 };
+		int[] B = new int[] { 2,3,4 };
 
 		KthMinSortedArrs kth = new KthMinSortedArrs();
-		System.out.println(kth.findKthSmallest(A, B, 8));
+		int k = 4;
+		double res = 0.0;
+		//res = kth.findMedianSortedArrays(A, B);
+		double res2 = kth.findKthSmallestSpec(A, 0, A.length, B, 0, B.length,
+				2, true);
+		System.out.println(res + " == " + res2);
 	}
 
 }

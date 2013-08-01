@@ -18,7 +18,7 @@ public class MagicIndex {
 	}
 
 	public static int magicDup(int[] ints, int start, int end) {
-		if (end < start) {
+		if (start > end) {
 			return -1;
 		}
 
@@ -28,11 +28,11 @@ public class MagicIndex {
 
 		int magic = -1;
 		if (ints[mid] < mid) {
-			magic = magicDup(ints, start, Math.min(ints[mid], mid - 1));
+			magic = magicDup(ints, Math.max(ints[mid], mid + 1), end);
 		}
 
 		if (magic < 0) {
-			magic = magicDup(ints, Math.max(mid + 1, ints[mid]), end);
+			magic = magicDup(ints, start, Math.min(mid - 1, ints[mid]));
 		}
 
 		return magic;

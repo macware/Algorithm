@@ -58,7 +58,49 @@ public class AddTwoNums {
 
 		return ans;
 	}
-
+	public ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int carry = 0;
+        
+        if (null == l1)
+            l1 = l2;
+            
+        ListNode res = l1;
+        
+        while (null != l1){
+            int sum = l1.val + carry;
+            if (null != l2)
+                sum += l2.val;
+                
+            if (sum >= 10){
+                carry = sum / 10;
+                sum %= 10;
+            } else
+                carry = 0;
+            
+            l1.val = sum;
+            if (null == l1.next && null != l2){
+                l1.next = l2.next;
+                l2.next = null;
+            }
+            
+            if (null == l1.next)
+                break;
+            else
+                l1 = l1.next;
+            
+            if (null != l2)
+                l2 = l2.next;
+        }
+        
+        if (carry > 0)
+            l1.next = new ListNode(carry);
+            
+        return res;
+    }
+	
+	
 	public void test() {
 		ListNode l1 = new ListNode(1);
 		l1.next = new ListNode(8);
