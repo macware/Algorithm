@@ -46,6 +46,25 @@ public class ContainerOfMostWater {
 		return sum;
 	}
 
+	public int maxArea2(int[] height) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int i = 0;
+        int j = height.length - 1;
+        
+        int tmp,area = 0;
+        while (i < j){
+            tmp = j - i;
+            if (height[i] < height[j]){
+                tmp *= height[i++];
+            } else
+                tmp *= height[j--];
+                
+            area = Math.max(area,tmp);
+        }
+        
+        return area;
+    }
 	/**
 	 * @param args
 	 */

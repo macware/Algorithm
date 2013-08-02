@@ -1,5 +1,9 @@
 package Math;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Stack;
+
 public class IntToRoman {
 
 	String[] digits = new String[] { "One", "Two", "Three", "Four", "Five",
@@ -54,13 +58,137 @@ public class IntToRoman {
 		return str;
 	}
 
+	public String intToRoman2(int num) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		String roman = "IVXLCDM";
+		Stack<Character> stack = new Stack<Character>();
+		int i;
+		for (int base = 0; num > 0; num /= 10, base += 2) {
+			int x = num % 10;
+			switch (x) {
+			case 1:
+			case 2:
+			case 3:
+				for (i = 0; i < x; i++)
+					stack.push(roman.charAt(base));
+				break;
+
+			case 4:
+				stack.push(roman.charAt(base + 1));
+				stack.push(roman.charAt(base));
+				break;
+			case 5:
+				stack.push(roman.charAt(base + 1));
+				break;
+
+			case 6:
+			case 7:
+			case 8:
+				for (i = 5; i < x; i++)
+					stack.push(roman.charAt(base));
+				stack.push(roman.charAt(base + 1));
+				break;
+
+			case 9:
+				stack.push(roman.charAt(base + 2));
+				stack.push(roman.charAt(base));
+				break;
+
+			default:
+				break;
+			}
+		}
+
+		StringBuffer ret = new StringBuffer();
+		while(!stack.isEmpty())
+			ret.append(stack.pop());
+		return ret.toString();
+	}
+	
+	public String intToRoman(int num) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		String roman = "IVXLCDM";
+		StringBuffer ret = new StringBuffer();
+		char[] tmp;
+		for (int base = 0; num > 0; num /= 10, base += 2) {
+			int x = num % 10;
+			switch (x) {
+			case 1:
+			case 2:
+			case 3:
+				tmp = new char[x];
+				Arrays.fill(tmp, roman.charAt(base));
+				ret.insert(0,tmp);
+				break;
+
+			case 4:
+				ret.insert(0,roman.charAt(base + 1));
+				ret.insert(0, roman.charAt(base));
+				break;
+			case 5:
+				ret.insert(0,roman.charAt(base + 1));
+				break;
+
+			case 6:
+			case 7:
+			case 8:
+				tmp = new char[x - 5];
+				Arrays.fill(tmp, roman.charAt(base));
+				ret.insert(0,tmp);
+				ret.insert(0,roman.charAt(base+1));
+				break;
+
+			case 9:
+				ret.insert(0,roman.charAt(base + 2));
+				ret.insert(0,roman.charAt(base));
+				break;
+
+			default:
+				break;
+			}
+		}
+
+		return ret.toString();
+	}
+
+	public int romanToInt(String s) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int ret = 0;
+        if (0 == s.length())
+            return ret;
+            
+        HashMap<Character,Integer> map = new HashMap<Character,Integer>();
+        map.put('I',1);
+        map.put('V',5);
+        map.put('X',10);
+        map.put('L',50);
+        map.put('C',100);
+        map.put('D',500);
+        map.put('M',1000);
+        
+        ret = map.get(s.charAt(s.length()-1));
+        for (int i = s.length() - 2; i >= 0; i--){
+            if (map.get(s.charAt(i+1)) <= map.get(s.charAt(i)))
+                ret += map.get(s.charAt(i));
+            else
+                ret -= map.get(s.charAt(i));
+        }
+        
+        return ret;
+    }
+	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		IntToRoman itr = new IntToRoman();
-		System.out.println(itr.numToString(1234567));
+		String res = itr.intToRoman(1994);
+		System.out.println(res);
+		System.out.println(itr.romanToInt(res));
 	}
 
 }
