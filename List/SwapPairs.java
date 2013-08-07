@@ -34,6 +34,33 @@ public class SwapPairs {
 
 		return newHead;
 	}
+	
+	public ListNode swapPairs2(ListNode head) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+            
+        ListNode fake = new ListNode(0);
+        fake.next = head;
+        
+        ListNode parent, node1, node2;
+        parent = fake;
+        node1 = head;
+       
+        while (node1 != null){
+            node2 = node1.next;
+            if (node2 == null)
+                break;
+                
+            node1.next = node2.next;
+            node2.next = node1;
+            parent.next = node2;
+            
+            parent = node1;
+            node1 = parent.next;
+        }
+        
+        return fake.next;
+    }
 	/**
 	 * @param args
 	 */

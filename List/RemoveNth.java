@@ -71,6 +71,31 @@ public class RemoveNth {
 		return res.next;
 	}
 
+	public ListNode removeNthFromEnd_padding2(ListNode head, int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        ListNode fake = new ListNode(0);
+        fake.next = head;
+        
+        ListNode back,front;
+        back = fake;
+        front = head;
+        
+        int i = 1;
+        while (i < n){
+            front = front.next;
+            i++;
+        }
+        
+        while (front.next != null){
+            front = front.next;
+            back = back.next;
+        }
+        
+        back.next = back.next.next;
+        
+        return fake.next;
+    }
 	/**
 	 * @param args
 	 */
