@@ -61,7 +61,7 @@ public class CombinationSum {
 		}
 	}
 
-	public ArrayList<ArrayList<Integer>> combinationSum(int[] candidates,
+	public ArrayList<ArrayList<Integer>> combinationSum_1(int[] candidates,
 			int target) {
 		// Start typing your Java solution below
 		// DO NOT write main() function
@@ -77,6 +77,60 @@ public class CombinationSum {
 
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 		combining_once(candidates, idx, target, res, sol, map);
+		return res;
+	}
+
+	/**
+	 * A more elegant solution
+	 */
+	public void search(int[] candidates, int start, int target,
+			ArrayList<ArrayList<Integer>> res, ArrayList<Integer> sol) {
+		if (target == 0) {
+			ArrayList<Integer> item = new ArrayList<Integer>(sol);
+			res.add(item);
+			return;
+		}
+
+		int rem = 0;
+		for (int i = start; i < candidates.length && candidates[i] <= target; i++) {
+			sol.add(candidates[i]);
+			rem = target - candidates[i];
+			if (rem >= 0)
+				search(candidates, i, rem, res, sol);
+			sol.remove(sol.size() - 1);
+		}
+	}
+
+	public void search_once(int[] candidates, int start, int target,
+			ArrayList<ArrayList<Integer>> res, ArrayList<Integer> sol) {
+		if (target == 0) {
+			ArrayList<Integer> item = new ArrayList<Integer>(sol);
+			res.add(item);
+			return;
+		}
+
+		int rem = 0;
+		for (int i = start; i < candidates.length && candidates[i] <= target; i++) {
+			if (i > start && candidates[i] == candidates[i - 1])
+				continue;
+
+			sol.add(candidates[i]);
+			rem = target - candidates[i];
+			if (rem >= 0)
+				search_once(candidates, i + 1, rem, res, sol);
+			sol.remove(sol.size() - 1);
+		}
+	}
+
+	public ArrayList<ArrayList<Integer>> combinationSum(int[] candidates,
+			int target) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		Arrays.sort(candidates);
+		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+		ArrayList<Integer> sol = new ArrayList<Integer>();
+		search(candidates, 0, target, res, sol);
+
 		return res;
 	}
 
