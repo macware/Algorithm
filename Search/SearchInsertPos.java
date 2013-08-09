@@ -27,6 +27,27 @@ public class SearchInsertPos {
 		}
 	}
 
+	public int searchHelper(int[] A, int start, int end, int target) {
+		if (start > end)
+			return start;
+
+		int mid = (start + end) / 2;
+		if (A[mid] == target)
+			return mid;
+
+		if (A[mid] < target) {
+			if (mid == A.length - 1 || target < A[mid + 1])
+				return (mid + 1);
+			else
+				return searchHelper(A, mid + 1, end, target);
+		} else {
+			if (mid == 0 || target > A[mid - 1])
+				return mid;
+			else
+				return searchHelper(A, start, mid - 1, target);
+		}
+	}
+
 	public int searchInsert(int[] A, int target) {
 		// Start typing your Java solution below
 		// DO NOT write main() function
@@ -41,7 +62,6 @@ public class SearchInsertPos {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
 	}
 
 }

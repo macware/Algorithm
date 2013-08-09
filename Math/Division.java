@@ -54,13 +54,36 @@ public class Division {
 		
 		return res;
 	}
+	
+	public int divide2(int dividend, int divisor) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        long a = Math.abs((long)dividend);
+        long b = Math.abs((long)divisor);
+        int res = 0;
+        
+        while ( a >= b){
+            int i = 1;
+            while ( a >= (b << i))
+                i++;
+            
+            res |= (1 << (i-1));
+            a -= (b << (i-1));
+        }
+        
+        if (((dividend^divisor) >> 31) != 0)
+            res = -res;
+            
+        return res;
+    }
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Division div = new Division();
-		System.out.println(div.divide(10000, -23));
+		//System.out.println(div.divide(10000, -23));
+		System.out.println(div.divide2(10000, -23));
 	}
 
 }
