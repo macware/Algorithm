@@ -56,8 +56,8 @@ public class Sprial {
 		// Start typing your Java solution below
 		// DO NOT write main() function
 		if (n < 0)
-			return null;
-		
+			return new int[0][];
+
 		int left, right, up, down;
 		left = 0;
 		right = n - 1;
@@ -69,7 +69,7 @@ public class Sprial {
 		int[][] matrix = new int[n][n];
 		if (n == 0)
 			return matrix;
-		
+
 		while (true) {
 			for (i = left; i <= right; i++)
 				matrix[up][i] = (++t);
@@ -101,6 +101,85 @@ public class Sprial {
 		}
 
 		return matrix;
+	}
+
+	/**
+	 * simplified
+	 * 
+	 */
+	public ArrayList<Integer> spiralOrder2(int[][] matrix) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		int left, up, right, down;
+		left = up = 0;
+		down = matrix.length - 1;
+
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		if (down < 0)
+			return res;
+		right = matrix[0].length - 1;
+
+		int i = 0;
+		while (true) {
+			for (i = left; i <= right; i++)
+				res.add(matrix[up][i]);
+			if (++up > down)
+				break;
+
+			for (i = up; i <= down; i++)
+				res.add(matrix[i][right]);
+			if (--right < left)
+				break;
+
+			for (i = right; i >= left; i--)
+				res.add(matrix[down][i]);
+			if (--down < up)
+				break;
+
+			for (i = down; i >= up; i--)
+				res.add(matrix[i][left]);
+			if (++left > right)
+				break;
+		}
+
+		return res;
+	}
+
+	public int[][] generateMatrix(int n) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		if (n <= 0)
+			return new int[0][];
+
+		int[][] res = new int[n][n];
+		int left, up, right, down;
+		up = left = 0;
+		right = down = n - 1;
+		int i, k = 1;
+
+		while (true) {
+			for (i = left; i <= right; i++)
+				res[up][i] = k++;
+			if (++up > down)
+				break;
+
+			for (i = up; i <= down; i++)
+				res[i][right] = k++;
+			if (--right < left)
+				break;
+
+			for (i = right; i >= left; i--)
+				res[down][i] = k++;
+			if (--down < up)
+				break;
+
+			for (i = down; i >= up; i--)
+				res[i][left] = k++;
+			if (++left > right)
+				break;
+		}
+
+		return res;
 	}
 
 	/**

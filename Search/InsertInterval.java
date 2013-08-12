@@ -14,24 +14,14 @@ public class InsertInterval {
         int i = 0;
         for (i = 0; i < intervals.size(); i++){
             Interval intv = intervals.get(i);
+            if (intv.start > newInterval.end)          
+                break;
             
-            if (newInterval.start >= intv.start && newInterval.start <= intv.end){
-                newInterval.start = intv.start;
+            if (newInterval.start <= intv.end){
+                newInterval.start = Math.min(newInterval.start, intv.start);
                 newInterval.end = Math.max(newInterval.end, intv.end);
                 continue;
             }
-            
-            if (newInterval.end >= intv.start && newInterval.end <= intv.end){
-                newInterval.start = Math.min(newInterval.start, intv.start);
-                newInterval.end = intv.end;
-                continue;
-            }
-            
-            if (newInterval.start <= intv.start && newInterval.end >= intv.end)
-                continue;
-                
-            if (intv.start > newInterval.end)              
-                break;
                 
             res.add(intv);
         }
@@ -41,6 +31,49 @@ public class InsertInterval {
         for (; i < intervals.size(); i++)
             res.add(intervals.get(i));
             
+        return res;
+    }
+	
+	public ArrayList<Interval> insert2(ArrayList<Interval> intervals, Interval newInterval) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        ArrayList<Interval> res = new ArrayList<Interval>();
+        if (intervals == null || intervals.size() == 0){
+            res.add(newInterval);
+            return res;
+        }
+        
+        Interval tag, cur;
+        tag = null;
+        
+        for (int i = 0; i < intervals.size(); i++){
+            cur = intervals.get(i);
+            if (newInterval != null){
+                if (newInterval.start >= cur.start && newInterval.start <= cur.end){
+                    cur.start = Math.min(newInterval.start, cur.start);
+                    cur.end = Math.max(newInterval.end, cur.end);
+                    newInterval = null;
+                } else if (newInterval.start < cur.start){
+                    cur = newInterval;
+                    i--;
+                    newInterval = null;
+                }
+            }
+            
+            if (tag != null  && cur.start >= tag.start && cur.start <= tag.end){
+                tag.start = Math.min(tag.start, cur.start);
+                tag.end = Math.max(tag.end, cur.end);
+            } else{
+                if (tag != null)
+                    res.add(tag);
+                tag = cur;
+            }
+        }
+        
+        res.add(tag);
+        if (newInterval != null)
+            res.add(newInterval);
+        
         return res;
     }
 	

@@ -16,7 +16,7 @@ public class PlaceQueens {
 
 	private void placing(int row, Integer[] cols, ArrayList<Integer[]> result) {
 		if (row == gridSize) {
-			result.add(cols.clone());
+			result.add(Arrays.copyOf(cols, cols.length));
 		} else {
 			for (int col = 0; col < gridSize; col++) {
 				if (checkValid(row, col, cols)) {
@@ -83,6 +83,7 @@ public class PlaceQueens {
 		// DO NOT write main() function
 		ArrayList<String[]> res = new ArrayList<String[]>();
 		int[] sol = new int[n];
+		Arrays.fill(sol, -1);
 		place(0, n, sol, res);
 
 		return res;
@@ -94,7 +95,7 @@ public class PlaceQueens {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		PlaceQueens pq = new PlaceQueens();
-		//System.out.println(pq.solveNQueens(4));
+		// System.out.println(pq.solveNQueens(4));
 		for (String[] item : pq.solveNQueens(9)) {
 			for (int i = 0; i < item.length; i++) {
 				System.out.println("[" + item[i] + "]");

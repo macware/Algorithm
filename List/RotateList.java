@@ -40,6 +40,34 @@ public class RotateList {
         
     }
 	
+	public ListNode rotateRight2(ListNode head, int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if (head == null || head.next == null)
+            return head;
+            
+        int k = 1;
+        ListNode rear = head;
+        while (rear.next != null){
+            rear = rear.next;
+            k++;
+        }
+        rear.next = head;
+        
+        n = n%k;
+        n = k - n;
+        
+        int i = 0;
+        while (i != n){
+            rear = rear.next;
+            i++;
+        }
+        
+        ListNode newHead = rear.next;
+        rear.next = null;
+        
+        return newHead;
+    }
 	/**
 	 * @param args
 	 */
