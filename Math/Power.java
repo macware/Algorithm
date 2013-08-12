@@ -25,6 +25,17 @@ public class Power {
             return powHelper(x,n-1)*x;
     }
     
+	public double powHelper2(double x, int n){
+        if (n == 0)
+            return 1;
+            
+        double half = powHelper(x, n/2);
+        if (n % 2 == 0)
+            return  half * half;
+        else
+            return x * half * half;
+    }
+	
     public double pow(double x, int n) {
         // Start typing your Java solution below
         // DO NOT write main() function

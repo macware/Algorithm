@@ -37,6 +37,40 @@ public class SortAnagrams {
 			}
 		}
 	}
+	
+	/**
+	 * second 
+	 */
+	public String sortStr(String str){
+        char[] c = str.toCharArray();
+        Arrays.sort(c);
+        return new String(c);
+    }
+    
+    public ArrayList<String> anagrams(String[] strs) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+            
+        HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+        for (int i = 0; i < strs.length; i++){
+            String str = sortStr(strs[i]);
+            ArrayList<String> list = map.get(str);
+            if (list == null){
+                list = new  ArrayList<String>();
+                map.put(str,list);
+            }
+            list.add(strs[i]);
+        }
+        
+        ArrayList<String> res = new ArrayList<String>();
+        for (ArrayList<String> item: map.values()){
+            if (item.size() > 1)
+                res.addAll(item);
+        }
+            
+        return res;
+    }
+    
 	/**
 	 * @param args
 	 */
