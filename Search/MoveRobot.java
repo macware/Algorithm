@@ -82,6 +82,38 @@ public class MoveRobot {
 		return pre[n-1];
 	}
 
+	public int minPathSum(int[][] grid) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if (grid == null || grid.length == 0 || grid[0].length == 0)
+            return 0;
+            
+        int[] pre,cur;
+        pre = new int[grid[0].length];
+        cur = new int[grid[0].length];
+        
+        int i,j;
+        pre[0] = grid[0][0];
+        for (i = 1; i < pre.length; i++)
+            pre[i] = pre[i-1] + grid[0][i];
+        
+        
+        for (i = 1; i < grid.length; i++){
+            for (j = 0; j < cur.length; j++){
+                cur[j] = pre[j];
+                if (j > 0 && cur[j-1] < pre[j])
+                    cur[j] = cur[j-1];
+                cur[j] += grid[i][j];
+            }
+            
+            int[] tmp = cur;
+            cur = pre;
+            pre = tmp;
+        }
+        
+        return pre[pre.length-1];
+    }
+	
 	/**
 	 * @param args
 	 */

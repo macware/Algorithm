@@ -1,4 +1,6 @@
-package List;
+package Math;
+
+import List.ListNode;
 
 public class AddTwoNums {
 
