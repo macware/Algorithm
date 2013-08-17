@@ -55,6 +55,34 @@ public class EditDistance {
 
 	}
 
+	public int minDistance2(String word1, String word2) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		int[] pre = new int[word1.length() + 1];
+		int[] cur = new int[word1.length() + 1];
+
+		int i, j;
+		for (i = 0; i < pre.length; i++)
+			pre[i] = i;
+
+		for (i = 0; i < word2.length(); i++) {
+			cur[0] = i + 1;
+			for (j = 0; j < word1.length(); j++) {
+				if (word1.charAt(j) == word2.charAt(i))
+					cur[j + 1] = pre[j];
+				else {
+					cur[j + 1] = Math.min(pre[j], Math.min(pre[j + 1], cur[j])) + 1;
+				}
+			}
+
+			int[] tmp = cur;
+			cur = pre;
+			pre = tmp;
+		}
+
+		return pre[pre.length - 1];
+	}
+
 	/**
 	 * @param args
 	 */
@@ -62,6 +90,7 @@ public class EditDistance {
 		// TODO Auto-generated method stub
 		EditDistance ed = new EditDistance();
 		System.out.println(ed.minDistance_save_space("hel", "hello"));
+		System.out.println(ed.minDistance2("hel", "hello"));
 	}
 
 }
