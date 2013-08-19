@@ -53,7 +53,8 @@ public class UniquePermut {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		UniquePermut up = new UniquePermut();
+		System.out.println(up.permute(new int[] { 1, 2, 2, 2, 2, 3 }));
 	}
 
 }
