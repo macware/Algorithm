@@ -26,6 +26,22 @@ public class DeleteDups {
         return head;
     }
 	
+	public ListNode deleteDuplicates2(ListNode head) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        ListNode tag, cur;
+        tag = head;
+        while (tag != null){
+            cur = tag.next;
+            if (cur != null && tag.val == cur.val)
+                tag.next = cur.next;
+            else 
+                tag = cur;
+        }
+        
+        return head;
+    }
+	
 	public ListNode removeDuplicated(ListNode head) {
         // Start typing your Java solution below
         // DO NOT write main() function
@@ -59,6 +75,42 @@ public class DeleteDups {
         
         return newHead.next;
     }
+	
+	public ListNode removeDuplicates2(ListNode head) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if (head == null)
+            return null;
+            
+        ListNode fake = new ListNode(-1);
+        fake.next = head;
+        ListNode tag = head, cur, p = fake;
+        int count = 1;
+        
+        cur = tag.next;
+        while (cur != null){
+            if (cur.val == tag.val)
+                count++;
+            else if (count == 1){
+                p.next = tag;
+                p = p.next;
+                tag = tag.next;
+            } else {
+                tag = cur;
+                count = 1;
+            }
+            
+            cur = cur.next;
+        }
+        
+        if (count == 1)
+            p.next = tag;
+        else
+            p.next = null;
+            
+        return fake.next;
+    }
+	
 	/**
 	 * @param args
 	 */
