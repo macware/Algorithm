@@ -15,7 +15,7 @@ public class ReverseBetween {
 		return rear;
 	}
 
-	public ListNode reverseBetween(ListNode head, int m, int n) {
+	public ListNode reverseBetween1(ListNode head, int m, int n) {
 		// Start typing your Java solution below
 		// DO NOT write main() function
 		if (m < 0 || n < 0 || m == n || head == null || head.next == null)
@@ -53,6 +53,48 @@ public class ReverseBetween {
 		pList.next = rem;
 
 		return newHead.next;
+	}
+
+	public ListNode insertFront(ListNode list, ListNode node) {
+		if (list == null) {
+			node.next = node;
+			return node;
+		}
+
+		node.next = list.next;
+		list.next = node;
+		return list;
+	}
+
+	public ListNode reverseBetween(ListNode head, int m, int n) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		ListNode fake = new ListNode(0);
+		fake.next = head;
+
+		ListNode list = null, rem = null, parent = fake, cur = head;
+		int k = 1;
+
+		while (cur != null) {
+			rem = cur.next;
+			if (k >= m)
+				list = insertFront(list, cur);
+			else
+				parent = cur;
+
+			if (k == n)
+				break;
+
+			cur = rem;
+			k++;
+		}
+
+		if (list != null) {
+			parent.next = list.next;
+			list.next = rem;
+		}
+
+		return fake.next;
 	}
 
 	/**
