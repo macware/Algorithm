@@ -20,7 +20,7 @@ public class TreeLevelTraversal {
 			while (!pre.isEmpty()) {
 				TreeNode n = pre.remove();
 				item.add(n.val);
-				
+
 				if (n.left != null)
 					cur.add(n.left);
 				if (n.right != null)
@@ -33,6 +33,9 @@ public class TreeLevelTraversal {
 			pre = tmp;
 		}
 
+		/*
+		 * Collections.reverse(res);
+		 */
 		return res;
 	}
 
