@@ -1,5 +1,7 @@
 package Tree;
 
+import java.util.*;
+
 public class UniqueBSTs {
 
 	/*
@@ -33,6 +35,54 @@ public class UniqueBSTs {
 		return numTreesHelper(n, cache);
 	}
 
+	/*
+	 * DP from bottom up
+	 */
+	public int numTrees2(int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if (n <= 0)
+            return 0;
+            
+        int[] tmp = new int[n+1];
+        tmp[0] = tmp[1] = 1;
+        
+        for (int i = 2; i <= n; i++){
+            for (int j = 1; j <= i; j++)
+                tmp[i] += (tmp[j-1] * tmp[i-j]);
+        }
+        
+        return tmp[n];
+    }
+	
+	public ArrayList<TreeNode> generating(int s, int e){
+        ArrayList<TreeNode> res = new ArrayList<TreeNode>();
+        if (s > e){
+            res.add(null);
+            return res;
+        }
+        
+        for (int i = s; i <= e; i++){
+            ArrayList<TreeNode> lefts = generating(s, i-1);
+            ArrayList<TreeNode> rights = generating(i+1, e);
+            for (TreeNode lnode : lefts){
+                for (TreeNode rnode : rights){
+                    TreeNode node = new TreeNode(i);
+                    node.left = lnode;
+                    node.right = rnode;
+                    res.add(node);
+                }
+            }           
+        }
+        
+        return res;
+    }
+    
+    public ArrayList<TreeNode> generateTrees(int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        return generating(1,n);
+    }
 	/**
 	 * @param args
 	 */
