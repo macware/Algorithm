@@ -18,7 +18,8 @@ public class BuildBSTFromList {
 		TreeNode parent = new TreeNode(list.val);
 		list = list.next;
 		parent.left = left;
-		parent.right = buildTree(mid + 1, end);
+		if (list != null)
+			parent.right = buildTree(mid + 1, end);
 
 		return parent;
 	}

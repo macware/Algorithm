@@ -29,11 +29,45 @@ public class MinDepth {
 				if (node.right != null)
 					next.add(node.right);
 			}
-			
+
 			cur = next;
 		}
-		
+
 		return minDep;
+	}
+
+	/*
+	 * null as a delimiter between different levels
+	 */
+	public int minDepth2(TreeNode root) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		if (root == null)
+			return 0;
+
+		int len = 0;
+		Queue<TreeNode> que = new LinkedList<TreeNode>();
+		que.add(root);
+		que.add(null);
+
+		while (true) {
+			TreeNode n = que.remove();
+			if (n == null) {
+				len++;
+				if (que.isEmpty())
+					break;
+				que.add(null);
+			} else {
+				if (n.left == null && n.right == null)
+					return (len + 1);
+				if (n.left != null)
+					que.add(n.left);
+				if (n.right != null)
+					que.add(n.right);
+			}
+		}
+
+		return len;
 	}
 
 	/**
