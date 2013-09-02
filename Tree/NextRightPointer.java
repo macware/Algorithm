@@ -102,6 +102,47 @@ public class NextRightPointer {
 		connect(nextRoot);
 	}
 
+	/*
+	 * Essentially a BFS with a bunch of null checking
+	 */
+	public void connect_general2(TreeLinkNode root) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		TreeLinkNode wall = root, cur, next, p;
+		while (wall != null) {
+			cur = wall;
+
+			p = next = null;
+			while (cur != null) {
+				if (cur.left != null) {
+					if (p != null) {
+						p.next = cur.left;
+						p = cur.left;
+					} else {
+						p = cur.left;
+						if (next == null)
+							next = cur.left;
+					}
+				}
+
+				if (cur.right != null) {
+					if (p != null) {
+						p.next = cur.right;
+						p = cur.right;
+					} else {
+						p = cur.right;
+						if (next == null)
+							next = cur.right;
+					}
+				}
+
+				cur = cur.next;
+			}
+
+			wall = next;
+		}
+	}
+
 	/**
 	 * @param args
 	 */
