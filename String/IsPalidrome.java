@@ -6,7 +6,7 @@ public class IsPalidrome {
 		// Below are the so-called alphanumeric characters
 		
         if (c >= 'a' && c <= 'z')
-            return (int)c;
+            return c;
             
         if (c >= 'A' && c <= 'Z')
             return (int)(c - 'A' + 'a');
