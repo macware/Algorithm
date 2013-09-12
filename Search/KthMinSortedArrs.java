@@ -209,6 +209,73 @@ public class KthMinSortedArrs {
 	// return findKthSmallest(A, i, B+j+1, n-j-1, k-j-1);
 	// }
 
+	public double findMedianSortedArrays2(int A[], int B[]) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		if (A == null || B == null)
+			return 0;
+
+		int size = A.length + B.length;
+		boolean even = (size % 2 == 0);
+
+		size /= 2;
+		if (!even)
+			size += 1;
+
+		int k = 1, i = 0, j = 0;
+		double res = 0.0;
+		while (i < A.length && j < B.length) {
+			if (k >= size) {
+				if (k == size)
+					res += Math.min(A[i], B[j]);
+				else if (even) {
+					res += Math.min(A[i], B[j]);
+					return res / 2;
+				} else
+					break;
+			}
+
+			if (A[i] < B[j])
+				i++;
+			else
+				j++;
+
+			k++;
+		}
+
+		while (i < A.length) {
+			if (k >= size) {
+				if (k == size)
+					res += A[i];
+				else if (even) {
+					res += A[i];
+					return res / 2;
+				} else
+					break;
+			}
+
+			i++;
+			k++;
+		}
+
+		while (j < B.length) {
+			if (k >= size) {
+				if (k == size)
+					res += B[j];
+				else if (even) {
+					res += B[j];
+					return res / 2;
+				} else
+					break;
+			}
+
+			j++;
+			k++;
+		}
+
+		return res;
+	}
+
 	public int findKthSmallest(int[] A, int[] B, int k) {
 		int n = 0;
 		int i, j;
@@ -251,15 +318,15 @@ public class KthMinSortedArrs {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] A = new int[] { 1 };
-		int[] B = new int[] { 2,3,4 };
+		int[] A = new int[] {};
+		int[] B = new int[] { 1, 2, 3, 4 };
 
 		KthMinSortedArrs kth = new KthMinSortedArrs();
 		int k = 4;
-		double res = 0.0;
-		//res = kth.findMedianSortedArrays(A, B);
-		double res2 = kth.findKthSmallestSpec(A, 0, A.length, B, 0, B.length,
-				2, true);
+		double res2 = 0.0, res = 0.0;
+		res = kth.findMedianSortedArrays2(A, B);
+		// res2 = kth.findKthSmallestSpec(A, 0, A.length, B, 0, B.length,
+		// 2, true);
 		System.out.println(res + " == " + res2);
 	}
 

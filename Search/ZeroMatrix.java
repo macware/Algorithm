@@ -59,9 +59,7 @@ public class ZeroMatrix {
 					if (k == -1)
 						k = j;
 
-					if (r == i)
-						matrix[i][j] = 1;
-					else
+					if (r != -1)
 						matrix[r][j] = 1;
 
 				} else if (k != -1) {

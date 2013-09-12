@@ -29,6 +29,7 @@ public class WordLadder {
 		newRes.remove(0);
 	}
 	
+	
 	public ArrayList<ArrayList<String>> construct(ArrayList<WordNode> wlist){
 		ArrayList<String> newRes = new ArrayList<String>();
 		ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
@@ -38,6 +39,11 @@ public class WordLadder {
 			System.out.println(aRes);
 		return res;
 	}
+	
+	public void constructing(WordNode node, ArrayList<ArrayList<String>> res, ArrayList<String> item){
+        if (node == null){
+        }
+    }
 	
 	public int ladderLength(String start, String end, HashSet<String> dict) {
 		// Start typing your Java solution below
@@ -74,7 +80,7 @@ public class WordLadder {
 					WordNode node = visited.get(tmp);
 					if (node == null) {
 						node = new WordNode(tmp, cur.count + 1);
-						if (tmp.endsWith(end)) {
+						if (tmp.equals(end)) {
 							minLen = node.count;
 							res.add(node);
 						}

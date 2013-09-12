@@ -11,25 +11,21 @@ public class LonComPrefix {
 		// Start typing your Java solution below
 		// DO NOT write main() function
 
-		if (strs == null || strs.length == 0 || strs[0].equals(""))
+		if (strs == null || strs.length == 0)
 			return "";
-		if (strs.length == 1)
-			return strs[0];
-
+		
 		int i, j;
 
 		for (j = 0; j < strs[0].length(); j++) {
 			for (i = 1; i < strs.length; i++) {
 				if (strs[i].length() <= j
 						|| strs[i].charAt(j) != strs[0].charAt(j)) {
-					System.out.println("j = " + j);
 					return strs[0].substring(0, j);
 				}
 			}
 		}
-
-		System.out.println("j = " + j);
-		return strs[0].substring(0, j);
+		
+		return strs[0];
 	}
 
 	/*

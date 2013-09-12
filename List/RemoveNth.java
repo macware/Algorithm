@@ -96,6 +96,36 @@ public class RemoveNth {
         
         return fake.next;
     }
+	
+	public ListNode removeNthFromEnd3(ListNode head, int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if (head == null || n <= 0)
+            return head;
+            
+        ListNode fake = new ListNode(-1);
+        fake.next = head;
+        ListNode p = fake;
+        
+        int i = 1;
+        while (i < n && head.next != null){
+            head = head.next;
+            i++;
+        }
+        
+        if ( i < n)
+            return fake.next;
+            
+        while (head.next != null){
+            head = head.next;
+            p = p.next;
+        }
+            
+        p.next = p.next.next;
+        
+        return fake.next;
+        
+    }
 	/**
 	 * @param args
 	 */
