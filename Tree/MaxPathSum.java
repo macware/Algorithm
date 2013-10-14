@@ -66,6 +66,31 @@ public class MaxPathSum {
     	
     	return maxSum;
     }
+    
+    public int searchMax(TreeNode root, int[] maxSum){
+        if (root == null)
+            return 0;
+            
+        int leftmax = searchMax(root.left, maxSum);
+        int rightmax = searchMax(root.right, maxSum);
+        
+        int ret = Math.max(root.val, root.val + Math.max(leftmax, rightmax));
+        maxSum[0] = Math.max(maxSum[0], Math.max(ret, root.val + leftmax + rightmax));
+        return ret;
+    }
+    
+    public int maxPathSum2(TreeNode root) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if (root == null)
+            return 0;
+            
+        int[] maxSum = new int[0];
+        maxSum[0] = Integer.MIN_VALUE;
+        searchMax(root, maxSum);
+        
+        return maxSum[0];
+    }
 	/**
 	 * @param args
 	 */

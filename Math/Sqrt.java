@@ -17,6 +17,7 @@ public class Sqrt {
 			if (mid == div)
 				return mid;
 
+			// be conservative
 			if (div > mid)
 				low = mid;
 			else
@@ -26,6 +27,29 @@ public class Sqrt {
 		return low;
 	}
 
+	
+	public int sqrt_overflow(int x) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if (x < 0)
+            return -1;
+            
+        int low = 0, high = x, mid, tmp;
+        while (low < high){
+            mid = (low + high)/2;
+            tmp = mid * mid;
+            if (x == tmp)
+                return mid;	
+                
+            if (x > tmp)
+                low = mid + 1;
+            else
+                high = mid - 1;
+        }
+        
+        return low;
+    }
+	
 	public int sqrt_newton(int x) {
 		// Start typing your Java solution below
 		// DO NOT write main() function
@@ -50,13 +74,27 @@ public class Sqrt {
 		return (int) r1;
 	}
 
+	public int fib(int n){
+		if (n <= 0)
+			return 0;
+		
+		int f0 = 0, f1 = 1, f2;
+		for (int i = 2; i <= n; i++){
+			f2 = f1 + f0;
+			f0 = f1;
+			f1 = f2;
+			System.out.print(f1+" ");
+		}
+		
+		return f1;
+	}
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Sqrt sq = new Sqrt();
-		System.out.println(sq.sqrt_newton(1117460177));
+		System.out.println(sq.fib(10));
 	}
 
 }

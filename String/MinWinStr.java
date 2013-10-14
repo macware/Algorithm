@@ -67,7 +67,8 @@ public class MinWinStr {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		MinWinStr mws = new MinWinStr();
-		System.out.println(mws.minWindow("", "bd"));
+		//System.out.println(mws.minWindow("", "bd"));
+		System.out.println((-1)^(-1));
 	}
 
 }

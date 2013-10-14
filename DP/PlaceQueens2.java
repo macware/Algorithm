@@ -84,6 +84,37 @@ public class PlaceQueens2 {
 		return cnt;
 	}
 
+	public void placing(int row, int ld, int rd, int[] refs) {
+		if (row == refs[0]) {
+			refs[1]++;
+			return;
+		}
+
+		int p, pos = refs[0] & (~(row | ld | rd));
+		while (pos != 0) {
+			p = pos & (~(pos - 1)); // p = pos & (-pos); ~(pos-1) = -(pos-1)-1
+			// ld: p at this level, cant put p-1 at next level, so forth p-2,
+			// p-3,
+			// rd: p at this level, cant put p+1 at next level, so forth p+2,
+			// p+3,
+			placing(row | p, (ld | p) >> 1, (rd | p) << 1, refs);
+			pos = pos & (pos - 1);
+		}
+	}
+
+	public int totalNQueens3(int n) {
+		// Note: The Solution object is instantiated only once and is reused by
+		// each test case.
+		if (n <= 0)
+			return 0;
+		int[] refs = new int[2];
+		refs[0] = (1 << n) - 1;
+		refs[1] = 0;
+		placing(0, 0, 0, refs);
+
+		return refs[1];
+	}
+
 	/**
 	 * @param args
 	 */

@@ -57,7 +57,7 @@ public class Power {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Power power = new Power();
-		System.out.println(power.pow(2,30));
+		System.out.println(3 << 2);
 	}
 
 }

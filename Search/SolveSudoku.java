@@ -40,7 +40,7 @@ public class SolveSudoku {
 			if (checkValid(i, j, t)) {
 				setValid(board, i, j, t);
 				if (search(board, slots, n + 1)) {
-					reset(board, i, j, t);
+					// reset(board, i, j, t);
 					return true;
 				}
 				reset(board, i, j, t);
@@ -57,7 +57,7 @@ public class SolveSudoku {
 		rowChecker = new boolean[9][9];
 		colChecker = new boolean[9][9];
 		blockChecker = new boolean[9][9];
-		
+
 		int t;
 		for (int i = 0; i < 9; i++)
 			for (int j = 0; j < 9; j++) {
@@ -84,6 +84,72 @@ public class SolveSudoku {
 		}
 	}
 
+	public boolean solving(int n, ArrayList<Integer> slots, char[][] board,
+			int[] rowchecker, int[] colchecker, int[] boxchecker,
+			Map<Integer, Integer> map, int all) {
+		if (n == slots.size())
+			return true;
+
+		int i = slots.get(n) / board.length;
+		int j = slots.get(n) % board.length;
+		int box = i / 3 * 3 + j / 3;
+
+		int p, pos = all & (~(rowchecker[i] | colchecker[j] | boxchecker[box]));
+		while (pos != 0) {
+			p = pos & (~(pos - 1));
+			rowchecker[i] |= p;
+			colchecker[j] |= p;
+			boxchecker[box] |= p;
+			board[i][j] = (char)(map.get(p) + '1');
+			
+			if (solving(n + 1, slots, board, rowchecker, colchecker,
+					boxchecker, map, all))
+				return true;
+			
+			rowchecker[i] &= ~p;
+			colchecker[j] &= ~p;
+			boxchecker[box] &= ~p;
+			board[i][j] = '.';
+			
+			pos &= (pos - 1);
+		}
+
+		return false;
+	}
+
+	public void solveSudoku2(char[][] board) {
+		// Note: The Solution object is instantiated only once and is reused by
+		// each test case.
+		if (board == null || board.length == 0
+				|| board.length != board[0].length)
+			return;
+
+		int[] rowchecker = new int[board.length];
+		int[] colchecker = new int[board.length];
+		int[] boxchecker = new int[board.length];
+		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		ArrayList<Integer> slots = new ArrayList<Integer>();
+
+		int i, j, c;
+		for (i = 0; i < board.length; i++) {
+			map.put(1 << i, i);
+			for (j = 0; j < board.length; j++) {
+				if (board[i][j] == '.') {
+					slots.add(i * board.length + j);
+					continue;
+				}
+
+				c = 1 << (board[i][j] - '1');
+				rowchecker[i] |= c;
+				colchecker[j] |= c;
+				boxchecker[i / 3 * 3 + j / 3] |= c;
+			}
+		}
+
+		int all = (1 << board.length) - 1;
+		res = solving(0, slots, board, rowchecker, colchecker, boxchecker, map, all);
+	}
+
 	/**
 	 * @param args
 	 */
@@ -96,7 +162,7 @@ public class SolveSudoku {
 
 		String[] strs2 = new String[] { "53..7....", "6..195...", ".98....6.",
 				"8...6...3", "4..8.3..1", "7...2...6", ".6....28.",
-				"...419..5", "....8..79"};
+				"...419..5", "....8..79" };
 
 		HashSet<Integer> empty = new HashSet<Integer>(Arrays.asList(72, 73, 74,
 				75, 76, 77, 78, 79));
@@ -118,7 +184,7 @@ public class SolveSudoku {
 			ss.print(board);
 		}
 
-		ss.solveSudoku(board);
+		ss.solveSudoku2(board);
 		System.out.println("Solve: " + ss.res);
 		ss.print(board);
 	}

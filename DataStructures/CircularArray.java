@@ -5,20 +5,22 @@ import java.util.*;
 public class CircularArray<T> implements Iterable<T> {
 
 	private T[] items;
+	private int head;
 	private int size;
 
 	public CircularArray(int size) {
 		items = (T[])(new Object[size]);
 		this.size = size;
+		head = 0;
 	}
 
 	private int convert(int idx) {
-		if (idx < 0) {
+		if (idx < 0){
 			idx %= size;
 			idx += size;
 		}
 
-		return idx % size;
+		return (head + idx) % size;
 	}
 
 	public T get(int idx) {
@@ -35,7 +37,7 @@ public class CircularArray<T> implements Iterable<T> {
 		return new CircularArrayIterator<T>();
 	}
 
-	private class CircularArrayIterator<TI> implements Iterator<TI> {
+	private class CircularArrayIterator<T> implements Iterator<T> {
 
 		private int cur;
 
@@ -52,10 +54,10 @@ public class CircularArray<T> implements Iterable<T> {
 		}
 
 		@Override
-		public TI next() {
+		public T next() {
 			// TODO Auto-generated method stub
 			cur++;
-			return (TI)items[cur];
+			return (T)items[cur];
 		}
 
 		@Override
@@ -82,6 +84,8 @@ public class CircularArray<T> implements Iterable<T> {
 		while (it.hasNext()){
 			System.out.println(it.next());
 		}
+		
+		
 	}
 
 }

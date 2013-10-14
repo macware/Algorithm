@@ -41,6 +41,52 @@ public class SortColor {
 		}
 	}
 
+	public void sortColors2(int[] A) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		if (A == null)
+			return;
+
+		int i = -1, j = A.length, k = 0;
+
+		while (k < j) {
+
+			if (A[k] == 0) {
+				A[k] = A[++i];
+				A[i] = 0;
+			}
+
+			if (A[k] == 2) {
+				A[k] = A[--j];
+				A[j] = 2;
+			}
+
+			if (i == k || A[k] == 1)
+				k++;
+		}
+	}
+
+	public void sortColors3(int[] A) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		if (A == null)
+			return;
+
+		int[] counter = new int[3];
+		int i;
+
+		for (i = 0; i < A.length; i++)
+			counter[A[i]]++;
+
+		int k = 0;
+		for (i = 0; i < 3; i++) {
+			while (counter[i] > 0) {
+				A[k++] = i;
+				counter[i]--;
+			}
+		}
+	}
+
 	/**
 	 * @param args
 	 */

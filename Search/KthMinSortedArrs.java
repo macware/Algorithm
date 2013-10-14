@@ -175,6 +175,67 @@ public class KthMinSortedArrs {
 		}
 	}
 
+	public boolean even;
+
+	public double medianFinder(int[] A, int as, int ae, int[] B, int bs,
+			int be, int k) {
+		int alen = 0, blen = 0;
+		if (as <= ae)
+			alen = ae - as + 1;
+		if (bs <= be)
+			blen = be - bs + 1;
+
+		int i = alen * (k - 1) / (alen + blen);
+		int j = k - 1 - i;
+
+		int ai_1, ai, bj_1, bj;
+
+		ai_1 = (i == 0 ? Integer.MIN_VALUE : A[as + i - 1]);
+		ai = (i == alen ? Integer.MAX_VALUE : A[as + i]);
+		bj_1 = (j == 0 ? Integer.MIN_VALUE : B[bs + j - 1]);
+		bj = (j == blen ? Integer.MAX_VALUE : B[bs + j]);
+
+		if (ai >= bj_1 && ai <= bj) {
+			if (even) {
+				i = as + i;
+				if (i != A.length - 1 && A[i + 1] < bj)
+					bj = A[i + 1];
+				return (ai + bj) * 0.5;
+			}
+			return ai;
+		} else if (bj >= ai_1 && bj <= ai) {
+			if (even) {
+				j = bs + j;
+				if (j != B.length - 1 && B[j + 1] < ai)
+					ai = B[j + 1];
+				return (ai + bj) * 0.5;
+			}
+			return bj;
+		} else {
+			if (ai < bj)
+				return medianFinder(A, as + i + 1, ae, B, bs, bs + j, k - i - 1);
+			else
+				return medianFinder(A, as, as + i, B, bs + j + 1, be, k - j - 1);
+		}
+	}
+
+	public double findMedianSortedArrays3(int A[], int B[]) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		int k = A.length + B.length;
+		if (k == 0)
+			return 0;
+
+		if (k > 1) {
+			even = (k % 2 == 0);
+			k /= 2;
+			if (!even)
+				k += 1;
+		}
+
+		return medianFinder(A, 0, A.length - 1, B, 0, B.length - 1, k);
+	}
+
 	/* implementation in c is much more convenient */
 	// int findKthSmallest(int A[], int m, int B[], int n, int k) {
 	// assert(m >= 0); assert(n >= 0); assert(k > 0); assert(k <= m+n);
@@ -319,14 +380,19 @@ public class KthMinSortedArrs {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] A = new int[] {};
-		int[] B = new int[] { 1, 2, 3, 4 };
+		int[] B = new int[] { 1, 2, 3, 4, 5 };
 
 		KthMinSortedArrs kth = new KthMinSortedArrs();
-		int k = 4;
+		int k = A.length + B.length;
+		if (k > 1) {
+			kth.even = (k % 2 == 0);
+			k /= 2;
+		}
 		double res2 = 0.0, res = 0.0;
-		res = kth.findMedianSortedArrays2(A, B);
-		// res2 = kth.findKthSmallestSpec(A, 0, A.length, B, 0, B.length,
-		// 2, true);
+
+		res = kth.medianFinder(A, 0, A.length - 1, B, 0, B.length - 1, k);
+		// res2 = kth.findKthSmallestSpec(A, 0, A.length, B, 0, B.length, 2,
+		// kth.even);
 		System.out.println(res + " == " + res2);
 	}
 

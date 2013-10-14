@@ -8,26 +8,26 @@ public class FindCommonAncestor {
 	}
 	
 	class Result{
-		public BinTreeNode node;
+		public TreeNode node;
 		public boolean isAncestor;
-		public Result(BinTreeNode n, boolean isAnc){
+		public Result(TreeNode n, boolean isAnc){
 			node = n;
 			isAncestor = isAnc;
 		}
 	}
 	
-	private Result commonAncestorHelper(BinTreeNode node, BinTreeNode p, BinTreeNode q){
+	private Result commonAncestorHelper(TreeNode node, TreeNode p, TreeNode q){
 		if (node == null)
 			return new Result(null,false);
 		
 		if (node == p && node == q)
 			return new Result(node,true);
 		
-		Result rx = commonAncestorHelper(node.leftChild, p, q);
+		Result rx = commonAncestorHelper(node.left, p, q);
 		if (rx.isAncestor)
 			return rx;
 		
-		Result ry = commonAncestorHelper(node.rightChild, p, q);
+		Result ry = commonAncestorHelper(node.right, p, q);
 		if (ry.isAncestor)
 			return ry;
 		
@@ -44,7 +44,7 @@ public class FindCommonAncestor {
 		}
 	}
 	
-	public BinTreeNode finding(BinTreeNode p, BinTreeNode q){
+	public TreeNode finding(TreeNode p, TreeNode q){
 		Result r = commonAncestorHelper(tree.root, p, q);
 		if (r.isAncestor)
 			return r.node;

@@ -45,13 +45,50 @@ public class ScrambleString {
 
 	}
 
+	public boolean isScramble2(String s1, String s2) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		if (s1 == null && s2 == null)
+			return true;
+
+		if (s1 == null || s2 == null)
+			return false;
+
+		if (s1.length() != s2.length())
+			return false;
+
+		int n = s1.length();
+		boolean[][][] scram = new boolean[n][n][n + 1];
+		int i, j;
+
+		for (i = 0; i < n; i++)
+			for (j = 0; j < n; j++)
+				scram[i][j][1] = (s1.charAt(i) == s2.charAt(j));
+
+		int len, k;
+		for (len = 2; len <= n; len++) {
+			for (i = 0; i <= n - len; i++)
+				for (j = 0; j <= n - len; j++)
+					for (k = 1; k < len; k++) {
+						if ((scram[i][j][k] && scram[i + k][j + k][len - k])
+								|| (scram[i][j + len - k][k] && scram[i + k][j][len
+										- k])) {
+							scram[i][j][len] = true;
+							break;
+						}
+					}
+		}
+
+		return scram[0][0][n];
+	}
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ScrambleString ss = new ScrambleString();
-		System.out.println(ss.isScramble("great", "rgtae"));
+		System.out.println(ss.isScramble2("abc", "bca"));
 	}
 
 }

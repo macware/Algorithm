@@ -1,21 +1,25 @@
 package Tree;
 
 public class TreeNode {
-
-	int val;
-	TreeNode left;
-	TreeNode right;
-
-	TreeNode(int x) {
-		val = x;
+	public TreeNode parent;
+	public TreeNode left;
+	public TreeNode right;
+	
+	public int val;
+	
+	// the number of nodes rooted at current node
+	public int size = 1;
+	
+	public TreeNode(){		
 	}
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	
+	public TreeNode(int v){		
+		val = v;
 	}
-
+	
+	public TreeNode(TreeNode p, TreeNode l, TreeNode r){
+		parent = p;
+		left = l;
+		right = r;
+	}
 }

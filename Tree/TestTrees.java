@@ -1,7 +1,5 @@
 package Tree;
 
-import java.util.*;
-
 public class TestTrees {
 
 	/**
@@ -22,12 +20,19 @@ public class TestTrees {
 		bst.insertValue(23);
 		bst.insertValue(24);
 
-		System.out.println(bst.rank(24));
-
-		HashSet<Character> longestSub = new HashSet<Character>();
-
-		HashSet<Character> newSub = new HashSet<Character>();
-		longestSub.addAll(newSub);
+		bst.inorderPrint();
+		
+		ConvertDoublyLinkedList cdll = new ConvertDoublyLinkedList();
+		TreeNode t = cdll.converting(bst.root);
+		if (t == null)
+			return;
+		
+		TreeNode cur = t;
+		System.out.print(t.val +" ");
+		while (cur.right != t){
+			System.out.print(cur.right.val+" ");
+			cur = cur.right;
+		}
 
 	}
 

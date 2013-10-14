@@ -9,7 +9,7 @@ public class FindSumPath {
 		this.sum = sum;
 	}
 	
-	private void findSum(BinTreeNode node, int[] path, int level){
+	private void findSum(TreeNode node, int[] path, int level){
 		if (node == null)
 			return;
 		
@@ -22,8 +22,8 @@ public class FindSumPath {
 				printPath(path, i,level);
 		}
 		
-		findSum(node.leftChild,path,level+1);
-		findSum(node.rightChild,path,level+1);
+		findSum(node.left,path,level+1);
+		findSum(node.right,path,level+1);
 		
 		path[level] = Integer.MIN_VALUE;
 	}

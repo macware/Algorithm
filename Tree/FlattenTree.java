@@ -59,6 +59,29 @@ public class FlattenTree {
 		flating(root);
 	}
 
+	public void flatting(TreeNode root, TreeNode[] node) {
+		if (root == null)
+			return;
+
+		TreeNode left = root.left;
+		TreeNode right = root.right;
+		if (node[0] != null)
+			node[0].right = root;
+
+		node[0] = root;
+		root.left = null;
+
+		flatting(left, node);
+		flatting(right, node);
+	}
+
+	public void flatten_trick(TreeNode root) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		TreeNode[] node = new TreeNode[1];
+		flatting(root, node);
+	}
+
 	/*
 	 * Put the right subtree to the rightmost leaf of the left subtree, matching
 	 * the semantic of preorder search

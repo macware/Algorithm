@@ -143,6 +143,53 @@ public class NextRightPointer {
 		}
 	}
 
+	public void connect_general3(TreeLinkNode root) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if (root == null)
+            return;
+            
+        TreeLinkNode wall = root, nextLevel, cur, next;
+        while (wall != null){
+            nextLevel = cur = next = null;
+            while (wall != null){
+                if (wall.left != null){
+                    if (cur == null){
+                        cur = wall.left;
+                        if (nextLevel == null)
+                            nextLevel = cur;
+                    } else if (next == null)
+                        next = wall.left;
+                }
+                
+                if (cur != null && next != null){
+                    cur.next = next;
+                    cur = next;
+                    next = null;
+                }
+                    
+                if (wall.right != null){
+                    if (cur == null){
+                        cur = wall.right;
+                        if (nextLevel == null)
+                            nextLevel = cur;
+                    } else if (next == null)
+                        next = wall.right;
+                }
+                
+                if (cur != null && next != null){
+                    cur.next = next;
+                    cur = next;
+                    next = null;
+                }
+                
+                wall = wall.next;
+            }
+            
+            wall = nextLevel;
+        }
+    }
+	
 	/**
 	 * @param args
 	 */

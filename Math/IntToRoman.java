@@ -188,7 +188,7 @@ public class IntToRoman {
 		IntToRoman itr = new IntToRoman();
 		String res = itr.intToRoman(1994);
 		System.out.println(res);
-		System.out.println(itr.romanToInt(res));
+		System.out.println(itr.romanToInt("XXIV"));
 	}
 
 }

@@ -134,6 +134,44 @@ public class CombinationSum {
 		return res;
 	}
 
+	/*
+	 * Here is a clear and compact version for 1 and 2
+	 */
+	public void combining(int start, int[] num, int target, ArrayList<Integer> path, ArrayList<ArrayList<Integer>> res){
+        if (target < 0 )
+            return;
+        
+        if (target == 0){
+            res.add(new ArrayList<Integer>(path));
+            return;
+        }
+        
+        for (int i = start; i < num.length; i++){
+            if (i > start && num[i] == num[i-1])
+                continue;
+                
+            if (target < num[i])
+                break;
+                
+            path.add(num[i]);
+            combining(i+1, num, target - num[i], path, res); // This is for combinationSum2
+            //combining(i, num, target - num[i], path, res); // This is for combinationSum1
+            path.remove(path.size()-1);
+        }
+    }
+    
+    public ArrayList<ArrayList<Integer>> combinationSum_compact(int[] num, int target) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        if (num == null || num.length == 0 || target <= 0)
+            return res;
+            
+        Arrays.sort(num);
+        ArrayList<Integer> path = new ArrayList<Integer>();
+        combining(0, num, target, path, res);
+        
+        return res;
+    }
 	/**
 	 * @param args
 	 */

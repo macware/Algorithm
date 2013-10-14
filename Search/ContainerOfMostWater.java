@@ -19,11 +19,11 @@ public class ContainerOfMostWater {
 	 * before it reaches a_or. In this case, we does move a_ol. But notice that
 	 * the volume of a_ol and a_rr is already greater than a_ol and a_or (as it
 	 * is wider and heigher), which means that a_ol and a_or is not the optimal
-	 * solution -- Contradiction! 
+	 * solution -- Contradiction!
 	 * 
 	 * Both cases arrive at a contradiction.
 	 */
-	
+
 	public int maxArea(int[] height) {
 		// Start typing your Java solution below
 		// DO NOT write main() function
@@ -47,24 +47,33 @@ public class ContainerOfMostWater {
 	}
 
 	public int maxArea2(int[] height) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        int i = 0;
-        int j = height.length - 1;
-        
-        int tmp,area = 0;
-        while (i < j){
-            tmp = j - i;
-            if (height[i] < height[j]){
-                tmp *= height[i++];
-            } else
-                tmp *= height[j--];
-                
-            area = Math.max(area,tmp);
-        }
-        
-        return area;
-    }
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		int i = 0;
+		int j = height.length - 1;
+
+		int tmp, area = 0;
+		while (i < j) {
+			tmp = j - i;
+			if (height[i] < height[j]) {
+				// Since i is lower than j,
+				// so there will be no jj < j that make the area from i,jj
+				// is greater than area from i,j
+				// so the maximum area that can benefit from i is already
+				// recorded.
+				// thus, we move i forward.
+				// 因为i是短板，所以如果无论j往前移动到什么位置，都不可能产生比area更大的面积
+				// 换句话所，i能形成的最大面积已经找到了，所以可以将i向前移。
+				tmp *= height[i++];
+			} else
+				tmp *= height[j--];
+
+			area = Math.max(area, tmp);
+		}
+
+		return area;
+	}
+
 	/**
 	 * @param args
 	 */

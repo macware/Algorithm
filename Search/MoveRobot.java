@@ -32,7 +32,34 @@ public class MoveRobot {
 		return pre[pre.length - 1];
 	}
 
-	public int uniquePaths(int m, int n) {
+	public int uniquePathsWithObstacles2(int[][] obstacleGrid) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if (obstacleGrid == null || 
+            obstacleGrid.length == 0 || obstacleGrid[0].length == 0)
+            return 0;
+            
+        if (obstacleGrid[0][0] == 1)
+            return 0;
+            
+        int[] res = new int[obstacleGrid[0].length];
+        res[0] = 1;
+
+        int i,j;
+        for (i = 0; i < obstacleGrid.length; i++){
+            for (j = 0; j < obstacleGrid[0].length; j++){
+                if (obstacleGrid[i][j] != 1){
+                    if (j > 0)
+                        res[j] += res[j-1];
+                } else
+                    res[j] = 0;
+            }
+        }
+        
+        return res[res.length-1];
+    }
+	
+	public int uniquePaths_safer(int m, int n) {
 		// Start typing your Java solution below
 		// DO NOT write main() function
 		if (m <= 0 || n <= 0)
@@ -51,6 +78,21 @@ public class MoveRobot {
 		
 		return (int)(divident / divisor);
 	}
+	
+	public int uniquePaths_normal(int m, int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if ( m <= 0 || n <= 0)
+            return 0;
+            
+        double res = 1;
+        for (int i = 0; i < m-1; i++){
+            res *= (n+i);
+            res /= (1+i);
+        }
+        
+        return (int)res;
+    }
 	
 	public int uniquePaths2(int m, int n) {
 		// Start typing your Java solution below
@@ -121,6 +163,7 @@ public class MoveRobot {
 		// TODO Auto-generated method stub
 		MoveRobot mr = new MoveRobot();
 		System.out.println(mr.uniquePaths2(10, 10));
+		System.out.println(mr.uniquePathsWithObstacles2(new int[][]{{0},{1}}));
 	}
 
 }

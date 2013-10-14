@@ -47,6 +47,48 @@ public class FindAllStrConcat {
 		return res;
 	}
 
+	public ArrayList<Integer> findSubstring2(String S, String[] L) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        if (L == null || L.length == 0 
+            || S == null || S.length() == 0)
+            return res;
+            
+        HashMap<String,Integer> histo = new HashMap<String,Integer>();
+        
+        int i, count, len = L[0].length();
+        for (i = 0; i < L.length; i++){
+            count = 1;
+            if (histo.containsKey(L[i]))
+                count += histo.get(L[i]);
+            histo.put(L[i],count);
+        }
+        
+        int j, totalLen = len * L.length;
+        for (i = 0; i <= S.length() - totalLen; i++){
+            HashMap<String,Integer> tmp = new HashMap<String,Integer>(histo);
+            for (j = i; j <= S.length() - len; j += len){
+                String str = S.substring(j, j+len);
+                if (!tmp.containsKey(str))
+                    break;
+                    
+                count = tmp.get(str) - 1;
+                if (count == 0)
+                    tmp.remove(str);
+                else
+                    tmp.put(str,count);
+            }
+            
+            if (tmp.size() != 0)
+                continue;
+                
+            res.add(i);
+        }
+        
+        return res;
+    }
+	
 	/**
 	 * @param args
 	 */
