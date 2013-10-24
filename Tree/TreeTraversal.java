@@ -33,41 +33,38 @@ public class TreeTraversal {
 		return res;
 	}
 
-	public ArrayList<Integer> inorderTraversal2(TreeNode root) {
+	public ArrayList<Integer> inorderTraversal_parent(TreeNode root) {
 		// Start typing your Java solution below
 		// DO NOT write main() function
 		ArrayList<Integer> res = new ArrayList<Integer>();
 		if (root == null)
 			return res;
-
-		TreeNode p, pre = null, cur = root;
-		while (true) {
-			if (cur != null) {
-				pre = cur;
-				cur = cur.left;
-				continue;
+		
+		TreeNode last = null, node = root;
+		while (node != null){
+			if (last == node.parent){
+				if (node.left != null){
+					last = node;
+					node = node.left;
+				} else
+					last = null;
 			}
-
-			if (pre == null)
-				break;
-
-			res.add(pre.val);
-			if (pre.right == null) {
-				p = pre.parent;
-				while (p != null && p.right == pre) {
-					pre = p;
-					p = pre.parent;
-				}
-				pre = p;
-				if (pre == null)
-					break;
-				if (pre.right != null)
-					res.add(pre.val);
+			
+			if (last == node.left){
+				res.add(node.val);
+				if (node.right != null){
+					last = node;
+					node = node.right;
+				} else
+					last = null;
 			}
-
-			cur = pre.right;
+			
+			if (last == node.right){
+				last = node;
+				node = node.parent;
+			}
 		}
-
+		
 		return res;
 	}
 
@@ -123,7 +120,42 @@ public class TreeTraversal {
 		return res;
 	}
 
-	public ArrayList<Integer> preorderTraversal3(TreeNode root) {
+	public ArrayList<Integer> preorderTraversal_parent(TreeNode root) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		if (root == null)
+			return res;
+
+		TreeNode last = null, node = root;
+		while (node != null) {
+			if (last == node.parent){
+				res.add(node.val);
+				if (node.left != null){
+					last = node;
+					node = node.left;
+				} else
+					last = null;
+			}
+			
+			if (last == node.left){
+				if (node.right != null){
+					last = node;
+					node = node.right;
+				} else
+					last = null;
+			}
+			
+			if (last == node.right){
+				last = node;
+				node = node.parent;
+			}
+		}
+
+		return res;
+	}
+	
+	public ArrayList<Integer> preorderTraversal_parent2(TreeNode root) {
 		// Start typing your Java solution below
 		// DO NOT write main() function
 		ArrayList<Integer> res = new ArrayList<Integer>();
@@ -149,42 +181,6 @@ public class TreeTraversal {
 			if (p != null && p.left == pre)
 				cur = p.right;
 			pre = p;
-		}
-
-		return res;
-	}
-
-	public ArrayList<Integer> preorderTraversal4(TreeNode root) {
-		// Start typing your Java solution below
-		// DO NOT write main() function
-		ArrayList<Integer> res = new ArrayList<Integer>();
-		if (root == null)
-			return res;
-
-		TreeNode p, pre = null, cur = root;
-		while (true) {
-			if (cur != null) {
-				res.add(cur.val);
-				pre = cur;
-				cur = cur.left;
-				continue;
-			}
-
-			if (pre == null)
-				break;
-
-			if (pre.right == null) {
-				p = pre.parent;
-				while (p != null && p.right == pre) {
-					pre = p;
-					p = pre.parent;
-				}
-				pre = p;
-				if (pre == null)
-					break;
-			}
-
-			cur = pre.right;
 		}
 
 		return res;
@@ -253,7 +249,42 @@ public class TreeTraversal {
 		return res;
 	}
 
-	public ArrayList<Integer> postorderTraversal3(TreeNode root) {
+	public ArrayList<Integer> postorderTraversal_parent2(TreeNode root) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		if (root == null)
+			return res;
+
+		TreeNode last = null, node = root;
+		while (node != null) {
+			if (last == node.parent){
+				if (node.left != null){
+					last = node;
+					node = node.left;
+				} else
+					last = null;
+			}
+			
+			if (last == node.left){
+				if (node.right != null){
+					last = node;
+					node = node.right;
+				} else
+					last = null;
+			}
+			
+			if (last == node.right){
+				res.add(node.val);
+				last = node;
+				node = node.parent;
+			}
+		}
+
+		return res;
+	}
+	
+	public ArrayList<Integer> postorderTraversal_parent(TreeNode root) {
 		// Start typing your Java solution below
 		// DO NOT write main() function
 		ArrayList<Integer> res = new ArrayList<Integer>();
@@ -284,6 +315,18 @@ public class TreeTraversal {
 
 		return res;
 	}
+	
+	/*
+		 *   4
+		 *  / \
+		 * 3    5
+		* / \  / \
+ 	*    2  1 6   7
+	*    	/      \
+	*      0        8
+	*                \
+	*                 9
+	 */     
 
 	/**
 	 * @param args
@@ -319,8 +362,16 @@ public class TreeTraversal {
 		nodes[9].parent = nodes[8];
 
 		TreeTraversal tt = new TreeTraversal();
+		TreeOps to = new TreeOps();
+		
 		System.out.println(tt.inorderTraversal(nodes[4]));
-		System.out.println(tt.inorderTraversal2(nodes[4]));
+		
+		to.delete_iter(nodes[4],5);
+		System.out.println(tt.inorderTraversal(nodes[4]));
+		
+		to.insert_iter(nodes[4],5);
+		System.out.println(tt.postorderTraversal(nodes[4]));
+		
 
 	}
 

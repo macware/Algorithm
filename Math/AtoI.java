@@ -118,13 +118,97 @@ public class AtoI {
 		return (int) (sign * res);
 	}
 
+	public int atoi_ugly(String str) {
+		// Note: The Solution object is instantiated only once and is reused by
+		// each test case.
+		if (str == null || str.length() == 0)
+			return 0;
+
+		int i = 0, sign = 0;
+		long n = 0;
+		char c = str.charAt(0);
+		while (c == ' ' && i < str.length()) {
+			i++;
+			c = str.charAt(i);
+		}
+
+		while (i < str.length()) {
+			c = str.charAt(i);
+			if (c == '+') {
+				if (sign != 0)
+					return 0;
+				sign = 1;
+			} else if (c == '-') {
+				if (sign != 0)
+					return 0;
+				sign = -1;
+
+			} else if (c >= '0' && c <= '9')
+				n = n * 10 + c - '0';
+			else
+				break;
+			i++;
+		}
+
+		if (sign >= 0 && n > Integer.MAX_VALUE)
+			return Integer.MAX_VALUE;
+		if (sign == -1 && n > Integer.MAX_VALUE)
+			return Integer.MIN_VALUE;
+
+		if (sign == 0)
+			sign = 1;
+
+		return (int) (sign * n);
+	}
+
+	public int atoi_best(String str) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        if (str == null || str.length() == 0)
+            return 0;
+        
+        int i = 0;
+        while (i < str.length() && str.charAt(i) == ' ')
+            i++;
+        
+        if (i == str.length())
+            return 0;
+            
+        int sign = 1;
+        char c = str.charAt(i);
+        if (c == '-'){
+            sign = -1;
+            i++;
+        } else if (c == '+')
+            i++;
+        
+        long n = 0;
+        while (i < str.length()){
+            c = str.charAt(i);
+            if (c >= '0' && c <= '9')
+                n = n*10 + c-'0';
+            else
+                break;
+            i++;
+        }
+        
+        System.out.println(n);
+        
+        if (n > Integer.MAX_VALUE){
+            if (sign == 1)
+                return Integer.MAX_VALUE;
+            if (sign == -1)
+                return Integer.MIN_VALUE;
+        }
+            
+        return (int)(sign * n);
+    }
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		AtoI atoi = new AtoI();
-		System.out.println(atoi.atoi2("1"));
+		System.out.println(atoi.atoi_best("-1"));
 	}
 
 }

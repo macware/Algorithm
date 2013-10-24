@@ -170,6 +170,40 @@ public class InsertInterval {
 		return res;
 	}
 
+	public ArrayList<Interval> insert_best(ArrayList<Interval> intervals, Interval newInterval) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if (newInterval == null)
+            return intervals;
+            
+        ArrayList<Interval> res = new ArrayList<Interval>();
+        if (intervals == null || intervals.size() == 0){
+            res.add(newInterval);
+            return res;
+        }
+        
+        Interval cur;
+        int i;
+        for (i = 0; i < intervals.size(); i++){
+            cur = intervals.get(i);
+            if (cur.end < newInterval.start)
+                res.add(cur);
+            else if (newInterval.end < cur.start){
+                // find a position
+                break;
+            } else {
+                newInterval.start = Math.min(newInterval.start, cur.start);
+                newInterval.end = Math.max(newInterval.end, cur.end);
+            }
+        }
+        
+        res.add(newInterval);
+        while (i < intervals.size())
+            res.add(intervals.get(i++));
+        
+        return res;
+    }
+	
 	/**
 	 * @param args
 	 */

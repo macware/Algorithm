@@ -61,6 +61,25 @@ public class PascalTriangle {
         return ret;
     }
 	
+	/* 
+	 * Roll back the array
+	 */
+	public ArrayList<Integer> getRow_best(int rowIndex) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        ArrayList<Integer> arr = new ArrayList<Integer>();
+        arr.add(1);
+        
+        int i,j,curlen;
+        for(i = 0; i < rowIndex; i++){
+            curlen = arr.size();
+            arr.add(1);
+            for (j = curlen - 1; j > 0; j--)
+                arr.set(j, arr.get(j) + arr.get(j-1));
+        }
+        
+        return arr;
+    }
+	
 	/**
 	 * @param args
 	 */

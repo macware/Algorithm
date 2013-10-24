@@ -374,6 +374,53 @@ public class KthMinSortedArrs {
 		return -1;
 	}
 
+	public double findMedianSortedArrays_On(int A[], int B[]) {
+		// Note: The Solution object is instantiated only once and is reused by
+		// each test case.
+		int Alen = 0, Blen = 0;
+		if (A != null)
+			Alen = A.length;
+		if (B != null)
+			Blen = B.length;
+
+		int k = Alen + Blen;
+		if (k == 0)
+			return 0;
+
+		int i = 0, j = 0, n = 0, t = 0;
+		boolean isOdd = (k % 2 == 1);
+		k /= 2;
+
+		while (n < k && i < Alen && j < Blen) {
+			if (A[i] > B[j])
+				t = B[j++];
+			else
+				t = A[i++];
+			n++;
+		}
+
+		while (n < k && i < Alen) {
+			t = A[i++];
+			n++;
+		}
+
+		while (n < k && j < Blen) {
+			t = B[j++];
+			n++;
+		}
+
+		int next = Integer.MAX_VALUE;
+		if (i != Alen)
+			next = A[i];
+		if (j != Blen && next > B[j])
+			next = B[j];
+
+		if (isOdd)
+			return next;
+
+		return 1.0 * (t + next) / 2;
+	}
+
 	/**
 	 * @param args
 	 */

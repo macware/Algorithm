@@ -27,29 +27,41 @@ public class Sqrt {
 		return low;
 	}
 
-	
 	public int sqrt_overflow(int x) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        if (x < 0)
-            return -1;
-            
-        int low = 0, high = x, mid, tmp;
-        while (low < high){
-            mid = (low + high)/2;
-            tmp = mid * mid;
-            if (x == tmp)
-                return mid;	
-                
-            if (x > tmp)
-                low = mid + 1;
-            else
-                high = mid - 1;
-        }
-        
-        return low;
-    }
-	
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		if (x < 0)
+			return -1;
+
+		int low = 0, high = x, mid, tmp;
+		while (low < high) {
+			mid = (low + high) / 2;
+			tmp = mid * mid;
+			if (x == tmp)
+				return mid;
+
+			if (x > tmp)
+				low = mid + 1;
+			else
+				high = mid - 1;
+		}
+
+		return low;
+	}
+
+	public int sqrt_newton_simple(int x) {
+		if (x <= 1)
+			return x;
+
+		double x1 = 0, x2 = x / 2;
+		while (Math.abs(x2 - x1) > 0.01) {
+			x1 = x2;
+			x2 = 0.5 * (x1 + x / x1);
+		}
+
+		return (int) x2;
+	}
+
 	public int sqrt_newton(int x) {
 		// Start typing your Java solution below
 		// DO NOT write main() function
@@ -74,20 +86,21 @@ public class Sqrt {
 		return (int) r1;
 	}
 
-	public int fib(int n){
+	public int fib(int n) {
 		if (n <= 0)
 			return 0;
-		
+
 		int f0 = 0, f1 = 1, f2;
-		for (int i = 2; i <= n; i++){
+		for (int i = 2; i <= n; i++) {
 			f2 = f1 + f0;
 			f0 = f1;
 			f1 = f2;
-			System.out.print(f1+" ");
+			System.out.print(f1 + " ");
 		}
-		
+
 		return f1;
 	}
+
 	/**
 	 * @param args
 	 */

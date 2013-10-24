@@ -72,10 +72,12 @@ public class MinHeap<E extends Comparable<E>> {
 		return ret;
 	}
 
-	// > 0 means, should put the newi in the front
+	// > 0 means, should put the newi in the front, high priority
 	Comparator<Integer> comp = new Comparator<Integer>() {
 		public int compare(Integer oldi, Integer newi) {
 			return (newi - oldi);
+			// if newi is larger than oldi, newi's priority is larger than oldi. newi will
+			// be put in front of oldi, which is a descendent order.
 		}
 	};
 

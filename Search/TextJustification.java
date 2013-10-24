@@ -51,6 +51,9 @@ public class TextJustification {
 		}
 	}
 
+	/*
+	 * n: the number of spaces
+	 */
 	public void justifying(String[] words, int start, int n, int len, int L,
 			ArrayList<String> res, boolean last) {
 		StringBuilder sb = new StringBuilder();
@@ -77,6 +80,8 @@ public class TextJustification {
 				sb.append(' ');
 		}
 
+		// we have n spaces, which means there are n+1 words
+		// this is the last word
 		sb.append(words[start + n]);
 
 		if (last) {

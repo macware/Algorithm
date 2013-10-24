@@ -96,6 +96,7 @@ public class SearchRange {
             if (mid < lower)
             	mid = lower;
             
+            // or just mid = (lower + upper)/2;
             if (A[mid] < target)
                 lower = mid + 1;
             else
@@ -108,6 +109,7 @@ public class SearchRange {
         range[0] = lower;
 
         // Search for upper bound
+        lower = 0;
         upper = A.length - 1;
         while (lower < upper) {
             mid = (lower + upper) / 2 + 1;       

@@ -58,6 +58,7 @@ public class MaximumRectangle {
             
         return max;
     }
+    
 	/**
 	 * @param args
 	 */
